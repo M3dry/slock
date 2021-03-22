@@ -20,10 +20,6 @@ options:
 
 ${OBJ}: config.h config.mk arg.h util.h
 
-config.h:
-	@echo creating $@ from config.def.h
-	@cp config.def.h $@
-
 slock: ${OBJ}
 	@echo CC -o $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
@@ -36,7 +32,7 @@ dist: clean
 	@echo creating dist tarball
 	@mkdir -p slock-${VERSION}
 	@cp -R LICENSE Makefile README slock.1 config.mk \
-		${SRC} explicit_bzero.c config.def.h arg.h util.h slock-${VERSION}
+		${SRC} explicit_bzero.c config.h arg.h util.h slock-${VERSION}
 	@tar -cf slock-${VERSION}.tar slock-${VERSION}
 	@gzip slock-${VERSION}.tar
 	@rm -rf slock-${VERSION}
